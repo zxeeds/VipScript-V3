@@ -10,17 +10,17 @@
 
 ### INSTALL SCRIPT
 
-<pre><code>apt install -y && apt update -y && apt upgrade -y && apt install lolcat -y && gem install lolcat && wget https://raw.githubusercontent.com/zxeeds/vip-script/main/main.sh && chmod +x main.sh && ./main.sh
+<pre><code>apt install -y && apt update -y && apt upgrade -y && apt install lolcat -y && gem install lolcat && wget https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/main.sh && chmod +x main.sh && ./main.sh
 </code></pre>
 
 ### INSTALL API
 
-<pre><code>wget https://raw.githubusercontent.com/zxeeds/vip-script/main/api-install.sh && chmod +x api-install.sh && ./api-install.sh
+<pre><code>wget https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/api-install.sh && chmod +x api-install.sh && ./api-install.sh
 </code></pre>
 
 ### PERINTAH UPDATE
 
-<pre><code>wget https://raw.githubusercontent.com/zxeeds/vip-script/main/files/update && chmod +x update && ./update</code></pre>
+<pre><code>wget https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/files/update && chmod +x update && ./update</code></pre>
 
 ### TESTED ON OS
 
