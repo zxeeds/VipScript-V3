@@ -86,6 +86,7 @@ echo "$username" >/usr/bin/user
 expx=$(curl https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/REGIST | grep $MYIP | awk '{print $3}')
 echo "$expx" >/usr/bin/e
 username=$(cat /usr/bin/user)
+echo "v3.1" > /usr/bin/ver
 oid=$(cat /usr/bin/ver)
 exp=$(cat /usr/bin/e)
 clear
