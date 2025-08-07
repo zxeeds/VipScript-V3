@@ -10,7 +10,7 @@ wget -O /etc/pam.d/common-password "${REPO}files/password"
 chmod +x /etc/pam.d/common-password
 
 # Konfigurasi keyboard (non-interaktif)
-DEBIAN_FRONTEND=noninteractive dpkg-reconfigure keyboard-configuration
+DEBIAN_FRONTEND=noninteractive dpkg-reconfigure keyboard-configuration 2>&1 | tee /var/log/keyboard-config.log
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/altgr select The default for the keyboard layout"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/compose select No compose key"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/ctrl_alt_bksp boolean false"
@@ -18,17 +18,8 @@ debconf-set-selections <<<"keyboard-configuration keyboard-configuration/layoutc
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/layout select English"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/modelcode string pc105"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/model select Generic 105-key (Intl) PC"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/optionscode string "
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/store_defaults_in_debconf_db boolean true"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/switch select No temporary switch"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/toggle select No toggling"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/unsupported_config_layout boolean true"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/unsupported_config_options boolean true"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/unsupported_layout boolean true"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/unsupported_options boolean true"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/variantcode string "
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/variant select English"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/xkb-keymap select "
 
 # Setup rc-local untuk disable IPv6 dan konfigurasi zona waktu
 cat > /etc/systemd/system/rc-local.service <<-END
@@ -47,21 +38,26 @@ WantedBy=multi-user.target
 END
 
 cat > /etc/rc.local <<-END
+#!/bin/bash
+echo "rc.local executed at $(date)" >> /var/log/rc-local.log
 exit 0
 END
 
 chmod +x /etc/rc.local
 systemctl enable rc-local
-systemctl start rc-local
+systemctl start rc-local || echo "rc-local failed to start. Check logs."
 
-# Disable IPv6 pada boot
-echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
+# Disable IPv6 secara permanen
+echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+sysctl -p
 
 # Set zona waktu
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+dpkg-reconfigure -f noninteractive tzdata
 
 # Nonaktifkan AcceptEnv pada SSH
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
+systemctl restart ssh || echo "SSH service failed to restart. Check logs."
 
 print_success "Konfigurasi Password SSH dan Keyboard selesai"

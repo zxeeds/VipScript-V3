@@ -15,7 +15,7 @@ OK="${Green}--->${FONT}"
 ERROR="${RED}[ERROR]${FONT}"
 GRAY="\e[1;30m"
 red='\e[1;31m'
-green='\e[0;32m"
+green='\e[0;32m'
 
 # Variabel URL dan Telegram
 TIME=$(date '+%d %b %Y')

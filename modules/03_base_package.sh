@@ -12,7 +12,7 @@ apt-get dist-upgrade -y
 apt-get install -y \
     zip pwgen openssl netcat-openbsd socat cron bash-completion figlet ntpdate sudo \
     debconf-utils software-properties-common speedtest-cli vnstat libnss3-dev libnspr4-dev \
-    pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev \
+    pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-openssl-dev \
     flex bison make libnss3-tools libevent-dev bc rsyslog dos2unix zlib1g-dev libssl-dev \
     libsqlite3-dev sed dirmngr libxml-parser-perl build-essential gcc g++ python3 htop lsof \
     tar wget curl ruby unzip p7zip-full python3-pip libc6 util-linux msmtp-mta ca-certificates \
