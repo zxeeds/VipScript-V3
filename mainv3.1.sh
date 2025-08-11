@@ -526,7 +526,7 @@ chmod +x /etc/rc.local
 
 # Install Menu
 print_install "Menginstall Menu VPS"
-wget -q -O /tmp/menu.zip "https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/menu/menu.zip"
+wget -q -O /tmp/menu.zip "https://raw.githubusercontent.com/zxeeds/VipScript-V3/main/Features/menu.zip"
 mkdir -p /tmp/menu
 unzip -q /tmp/menu.zip -d /tmp/menu
 chmod +x /tmp/menu/*
